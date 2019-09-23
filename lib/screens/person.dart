@@ -20,13 +20,16 @@ class _PersonState extends State<PersonPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.nome),
+        centerTitle: true,
       ),
-      body: Center(child: Column(
-        children: <Widget>[
-          Text(widget.id.toString()),
-          Text(widget.telefone),
-        ],
-      ),)
-      );
+        body: Center(child: Column(
+          children: <Widget>[
+            Text(widget.id.toString(),
+            style: TextStyle(color: Colors.blue, fontSize: 20.0),),
+            Text(widget.telefone,
+              style: TextStyle(color: Colors.blue, fontSize: 20.0),),
+          ],
+        ),)
+    );
   }
 }

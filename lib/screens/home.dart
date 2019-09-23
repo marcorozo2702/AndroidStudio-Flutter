@@ -194,9 +194,9 @@ class _HomeState extends State<Home> {
                             MaterialPageRoute(
                                 builder:(context) =>PersonPage(
                                   /*erro*/
-                                  person[index].id,
-                                  person[index].nome,
-                                  person[index].telefone,
+                                 id:person[index].id,
+                                 nome: person[index].nome,
+                                  telefone: person[index].telefone,
                                 )
                             ),
                           );
