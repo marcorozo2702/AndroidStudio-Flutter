@@ -11,7 +11,7 @@ class Cadastro extends StatefulWidget {
 
 class _CadastroState extends State<Cadastro> {
   final _nameController = TextEditingController();
-  final _emailController = TextEditingController();
+  final _telefoneController = TextEditingController();
   // final _phoneController = TextEditingController();
   final _nameFocus = FocusNode();
 
@@ -28,7 +28,7 @@ class _CadastroState extends State<Cadastro> {
     } else {
       _editedContact = Person.fromMap(widget.person.toMap());
       _nameController.text = _editedContact.nome;
-      _emailController.text = _editedContact.telefone;
+      _telefoneController.text = _editedContact.telefone;
       //_phoneController.text = _editedContact.phone;
     }
   }
@@ -76,7 +76,7 @@ class _CadastroState extends State<Cadastro> {
                 _userEdited = true;
                 _editedContact.telefone = text;
               },
-              controller: _emailController,
+              controller: _telefoneController,
             ),
           ],
         ),
