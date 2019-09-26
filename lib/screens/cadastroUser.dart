@@ -10,6 +10,9 @@ class CadastroUser extends StatefulWidget {
 }
 
 class _CadastroUserState extends State<CadastroUser> {
+
+  UserHelper helper = UserHelper();
+
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
 
@@ -47,6 +50,7 @@ class _CadastroUserState extends State<CadastroUser> {
           children: <Widget>[
             TextFormField(
               decoration: InputDecoration(labelText: 'Email'),
+              keyboardType: TextInputType.emailAddress,
               focusNode: _nameFocus,
               onChanged: (text) {
                 _userEdited = true;
@@ -63,6 +67,7 @@ class _CadastroUserState extends State<CadastroUser> {
                 _userEdited = true;
                 _editedContact.password = text;
               },
+              obscureText: true,
               controller: _passwordController,
             ),
             Padding(
@@ -73,11 +78,13 @@ class _CadastroUserState extends State<CadastroUser> {
                 child: RaisedButton(
                   onPressed: () {
                     if (_editedContact.email != null &&
-                        _editedContact.email.isNotEmpty) {
+                        _editedContact.email.isNotEmpty || _editedContact.password != null &&
+                        _editedContact.password.isNotEmpty ) {
                       Navigator.pop(context, _editedContact);
                     } else {
                       FocusScope.of(context).requestFocus(_nameFocus);
                     }
+                    helper.savePerson(_editedContact);
                   },
                   color: Colors.white70,
                   child: Text(

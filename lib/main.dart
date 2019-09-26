@@ -2,16 +2,23 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'screens/home.dart';
 import 'screens/login.dart';
-void main(){
+import 'package:flutter_app_screens/helper/usuario_helper.dart';
+
+void main() async{
   // Set portrait orientation
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitDown,
     DeviceOrientation.portraitUp,
   ]);
+
+  UserHelper user = new UserHelper();
+
+
+
+
   runApp(
       MaterialApp(
-        title: 'Flutter Screens',
-        home: LoginPage(),
+        home: (await user.getVerifica()) == true ? Home() : LoginPage(),
         debugShowCheckedModeBanner: false,
       )
   );

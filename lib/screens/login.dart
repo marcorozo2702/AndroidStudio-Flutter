@@ -6,6 +6,9 @@ import 'package:flutter_app_screens/screens/home.dart';
 
 
 class LoginPage extends StatefulWidget {
+  final User user;
+
+  LoginPage({this.user});
   @override
   _LoginPageState createState() => _LoginPageState();
 }
@@ -13,6 +16,29 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   UserHelper helper = UserHelper();
   List<User> user = List();
+
+
+  final _emailController = TextEditingController();
+  final _passwordController = TextEditingController();
+
+  User _editedContact;
+  Verifica _editedVerifica;
+
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.user == null) {
+      _editedContact = User();
+      _editedVerifica = Verifica();
+    } else {
+      _editedContact = User.fromMap(widget.user.toMap());
+      _emailController.text = _editedContact.email;
+      _passwordController.text = _editedContact.password;
+      //_phoneController.text = _editedContact.phone;
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {
@@ -40,12 +66,13 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 TextField(
                   decoration: InputDecoration(labelText: "E-mail"),
-                 // controller: _email,
+                  controller: _emailController,
                 ),
                 TextField(
                   decoration: InputDecoration(labelText: "Senha"),
                   keyboardType: TextInputType.visiblePassword,
-                 // controller: _senha,
+                  obscureText: true,
+                  controller: _passwordController,
                 ),
 
                 Padding(
@@ -54,10 +81,13 @@ class _LoginPageState extends State<LoginPage> {
                     width: 220.0,
                     height: 40.0,
                     child: RaisedButton(
-                      onPressed: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => Home()));},
+                      onPressed: () async {
+                        if (await helper.getPerson(_editedContact.email, _editedContact.password) != null){
+                          helper.saveVerifica(_editedVerifica);
+                          Navigator.pop(context);
+                          await Navigator.push(context, MaterialPageRoute(builder: (context) => Home()));
+                        }
+                      },
                       color: Colors.black45,
                       child: Text(
                         "Entrar",
